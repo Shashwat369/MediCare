@@ -6,7 +6,7 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <nav className="shadow-md bg-white">
+    <nav className="shadow-md bg-white sticky top-0 w-full z-100">
 
       {/* Top Navbar */}
       <div className="flex items-center justify-between px-6 py-3">
