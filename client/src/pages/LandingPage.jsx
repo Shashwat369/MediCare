@@ -5,6 +5,7 @@ import AIPrescription from '../components/AIPrescription'
 import MedicineCategories from '../components/MedicineCategories'
 import PopularMedicines from '../components/PopularMedicine'
 import HowItWorks from '../components/HowItWorks'
+import LandingFooter from '../components/LandingFooter'
 
 const LandingPage = () => {
   return (
@@ -15,7 +16,8 @@ const LandingPage = () => {
     <MedicineCategories/>
     <PopularMedicines/>
     <HowItWorks/>
-    
+    <LandingFooter/>
+
 
     </div>
   )
