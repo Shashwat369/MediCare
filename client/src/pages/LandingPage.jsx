@@ -1,11 +1,11 @@
 import React from 'react'
-import Hero from '../components/Hero'
-import TrustSection from '../components/TrustSection'
-import AIPrescription from '../components/AIPrescription'
-import MedicineCategories from '../components/MedicineCategories'
-import PopularMedicines from '../components/PopularMedicine'
-import HowItWorks from '../components/HowItWorks'
-import LandingFooter from '../components/LandingFooter'
+import Hero from '../components/LandingPage/Hero'
+import TrustSection from '../components/LandingPage/TrustSection'
+import AIPrescription from '../components/LandingPage/AIPrescription'
+import MedicineCategories from '../components/LandingPage/MedicineCategories'
+import PopularMedicines from '../components/LandingPage/PopularMedicine'
+import HowItWorks from '../components/LandingPage/HowItWorks'
+import LandingFooter from '../components/LandingPage/LandingFooter'
 
 const LandingPage = () => {
   return (

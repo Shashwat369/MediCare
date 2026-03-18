@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useRef } from "react";
-import Image1 from "../assets/Images/Image1.png";
+import Image1 from "../../assets/Images/Image1.png";
 
 export default function HeroSection() {
 

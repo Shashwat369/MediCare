@@ -1,12 +1,12 @@
 import { motion } from "framer-motion";
  import {ArrowRight} from "lucide-react";
 
-import Dolo from "../assets/Images/MedImages/Dolo.webp";
-import Paracetamol from "../assets/Images/MedImages/Paracetamol.jpg";
-import Crocin from "../assets/Images/MedImages/Crocin.webp";
-import Azithromycin from "../assets/Images/MedImages/Azithromycin.jpg";
-import VitaminC from "../assets/Images/MedImages/VitaminC.jpg";
-import Cetirizine from "../assets/Images/MedImages/Cetirizine.jpg";
+import Dolo from "../../assets/Images/MedImages/Dolo.webp";
+import Paracetamol from "../../assets/Images/MedImages/Paracetamol.jpg";
+import Crocin from "../../assets/Images/MedImages/Crocin.webp";
+import Azithromycin from "../../assets/Images/MedImages/Azithromycin.jpg";
+import VitaminC from "../../assets/Images/MedImages/VitaminC.jpg";
+import Cetirizine from "../../assets/Images/MedImages/Cetirizine.jpg";
 
 const medicines = [
   {

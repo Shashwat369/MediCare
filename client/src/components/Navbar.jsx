@@ -43,9 +43,9 @@ const Navbar = () => {
           </span>
 
           {/* Login */}
-          <button className="bg-green-600 text-white px-4 py-1 rounded-md">
+          <Link to="/login" className="bg-green-600 text-white px-4 py-1 rounded-md">
             Login
-          </button>
+          </Link>
 
         </div>
 
