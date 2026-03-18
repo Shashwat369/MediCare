@@ -33,7 +33,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-green-50">
+    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-blue-50 to-green-50">
       <div className="w-full max-w-md bg-white/80 backdrop-blur-md shadow-xl rounded-2xl p-8 border border-gray-200">
         
         {/* Logo / Title */}
@@ -49,7 +49,7 @@ const Login = () => {
 
           {/* Email */}
           <div>
-            <label className="text-sm font-medium text-gray-600">
+            <label className="text-sm font-medium text-gray-700">
               Email
             </label>
             <input
@@ -58,13 +58,13 @@ const Login = () => {
               placeholder="Enter your email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
+              className="w-full mt-1 px-4 py-2 border border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
             />
           </div>
 
           {/* Password */}
           <div>
-            <label className="text-sm font-medium text-gray-600">
+            <label className="text-sm font-medium text-gray-700">
               Password
             </label>
             <input
@@ -73,22 +73,22 @@ const Login = () => {
               placeholder="Enter your password"
               value={formData.password}
               onChange={handleChange}
-              className="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
+              className="w-full mt-1 px-4 py-2 border border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
             />
           </div>
 
           {/* Role Select */}
           <div>
-            <label className="text-sm font-medium text-gray-600">
+            <label className="text-sm font-medium text-gray-700">
               Login as
             </label>
             <select
               name="role"
               value={formData.role}
               onChange={handleChange}
-              className="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
+              className="w-full mt-1 text-gray-700 px-4 py-2 border border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
             >
-              <option value="user">User</option>
+              <option value="user" >User</option>
               <option value="seller">Seller</option>
             </select>
           </div>
