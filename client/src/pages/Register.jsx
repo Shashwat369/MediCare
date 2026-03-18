@@ -65,7 +65,7 @@ const Register = () => {
 
           {/* Name */}
           <div>
-            <label className="text-sm font-medium text-gray-600">
+            <label className="text-sm font-medium text-gray-700">
               Full Name
             </label>
             <input
@@ -74,13 +74,13 @@ const Register = () => {
               placeholder="Enter your name"
               value={formData.name}
               onChange={handleChange}
-              className="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
+              className="w-full mt-1 px-4 py-2 border border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
             />
           </div>
 
           {/* Email */}
           <div>
-            <label className="text-sm font-medium text-gray-600">
+            <label className="text-sm font-medium text-gray-700">
               Email
             </label>
             <input
@@ -89,13 +89,13 @@ const Register = () => {
               placeholder="Enter your email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
+              className="w-full mt-1 px-4 py-2 border border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
             />
           </div>
 
           {/* Password */}
           <div>
-            <label className="text-sm font-medium text-gray-600">
+            <label className="text-sm font-medium text-gray-700">
               Password
             </label>
             <input
@@ -104,13 +104,13 @@ const Register = () => {
               placeholder="Create password"
               value={formData.password}
               onChange={handleChange}
-              className="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
+              className="w-full mt-1 px-4 py-2 border border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
             />
           </div>
 
           {/* Confirm Password */}
           <div>
-            <label className="text-sm font-medium text-gray-600">
+            <label className="text-sm font-medium text-gray-700">
               Confirm Password
             </label>
             <input
@@ -119,20 +119,20 @@ const Register = () => {
               placeholder="Confirm password"
               value={formData.confirmPassword}
               onChange={handleChange}
-              className="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
+              className="w-full mt-1 px-4 py-2 border border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
             />
           </div>
 
           {/* Role */}
           <div>
-            <label className="text-sm font-medium text-gray-600">
+            <label className="text-sm font-medium text-gray-700">
               Register as
             </label>
             <select
               name="role"
               value={formData.role}
               onChange={handleChange}
-              className="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
+              className="w-full mt-1 px-4 py-2 border border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
             >
               <option value="user">User</option>
               <option value="seller">Seller</option>
@@ -142,7 +142,7 @@ const Register = () => {
           {/* Button */}
           <button
             type="submit"
-            className="w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded-lg font-semibold transition duration-200"
+            className="w-full bg-green-500 cursor-pointer hover:bg-green-600 text-white py-2 rounded-lg font-semibold transition duration-200"
           >
             Register
           </button>
