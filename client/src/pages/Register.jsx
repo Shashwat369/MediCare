@@ -19,7 +19,7 @@ const Register = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (
@@ -28,62 +28,79 @@ const Register = () => {
       !formData.password ||
       !formData.confirmPassword
     ) {
-      alert("Please fill all fields");
-      return;
+      return alert("Please fill all fields");
     }
-
     if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match");
-      return;
+      return alert("Passwords do not match");
     }
 
-    // Dummy register logic
-    alert("Registered successfully!");
+    try {
+      // Send data to backend (excluding confirmPassword)
+      const response = await fetch("http://localhost:5000/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          password: formData.password,
+          role: formData.role,
+        }),
+      });
 
-    // Redirect based on role
-    if (formData.role === "user") {
-      navigate("/"); // Redirecting to landing page for now
-    } else if (formData.role === "seller") {
-      navigate("/seller/dashboard");
+      const data = await response.json();
+
+      if (response.ok) {
+        alert("Registered successfully! Please login.");
+        navigate("/login"); // Send them to login after registering
+      } else {
+        alert(data.message); // e.g., "User already exists"
+      }
+    } catch (error) {
+      console.error("Error registering:", error);
+      alert("Server error. Please try again later.");
     }
   };
 
   return (
     /* Main Container */
     <div className="min-h-screen flex">
-      
       {/* LEFT SIDE: Image Container */}
-      <div 
+      <div
         className="hidden lg:flex lg:w-1/2 bg-cover bg-center relative"
         /* medical image for Register page */
-        style={{ backgroundImage: "url('https://images.unsplash.com/photo-1631549916768-4119b2e5f926?q=80&w=2079&auto=format&fit=crop')" }}
+        style={{
+          backgroundImage:
+            "url('https://images.unsplash.com/photo-1631549916768-4119b2e5f926?q=80&w=2079&auto=format&fit=crop')",
+        }}
       >
         <div className="absolute inset-0 bg-green-900/40"></div>
-        
+
         <div className="relative z-10 flex flex-col justify-center items-start p-16 text-white w-full">
-          <h2 className="text-5xl font-bold mb-6">Join the Future <br/>of Healthcare.</h2>
+          <h2 className="text-5xl font-bold mb-6">
+            Join the Future <br />
+            of Healthcare.
+          </h2>
           <p className="text-lg max-w-md">
-            Create an account to track your orders, manage your prescriptions, and experience seamless delivery.
+            Create an account to track your orders, manage your prescriptions,
+            and experience seamless delivery.
           </p>
         </div>
       </div>
 
       {/* RIGHT SIDE: Form Container */}
       <div className="w-full lg:w-1/2 flex items-center justify-center bg-linear-to-br from-blue-50 to-green-50 p-6">
-        
         <div className="w-full max-w-md bg-white/80 backdrop-blur-md shadow-xl rounded-2xl p-5 border border-gray-200">
-          
           <h1 className="text-3xl font-bold text-center text-green-600 ">
             Medicare
           </h1>
-          <p className="text-center text-gray-500 ">
-            Create your account
-          </p>
+          <p className="text-center text-gray-500 ">Create your account</p>
 
           <form onSubmit={handleSubmit} className="space-y-4 ">
             {/* Name */}
             <div>
-              <label className="text-sm font-medium text-gray-700">Full Name</label>
+              <label className="text-sm font-medium text-gray-700">
+                Full Name
+              </label>
               <input
                 type="text"
                 name="name"
@@ -109,7 +126,9 @@ const Register = () => {
 
             {/* Password */}
             <div>
-              <label className="text-sm font-medium text-gray-700">Password</label>
+              <label className="text-sm font-medium text-gray-700">
+                Password
+              </label>
               <input
                 type="password"
                 name="password"
@@ -122,7 +141,9 @@ const Register = () => {
 
             {/* Confirm Password */}
             <div>
-              <label className="text-sm font-medium text-gray-700">Confirm Password</label>
+              <label className="text-sm font-medium text-gray-700">
+                Confirm Password
+              </label>
               <input
                 type="password"
                 name="confirmPassword"
@@ -135,7 +156,9 @@ const Register = () => {
 
             {/* Role */}
             <div>
-              <label className="text-sm font-medium text-gray-700">Register as</label>
+              <label className="text-sm font-medium text-gray-700">
+                Register as
+              </label>
               <select
                 name="role"
                 value={formData.role}

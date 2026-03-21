@@ -17,15 +17,32 @@ const Login = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+ const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Dummy login logic
     if (formData.email && formData.password) {
-      if (formData.role === "user") {
-        navigate("/"); 
-      } else if (formData.role === "seller") {
-        navigate("/seller/dashboard");
+      try {
+        const response = await fetch("http://localhost:5000/api/auth/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          alert("Login Successful!");
+          
+          localStorage.setItem("token", data.token); 
+          
+          if (data.role === "user") navigate("/");
+          else if (data.role === "seller") navigate("/seller/dashboard");
+        } else {
+          alert(data.message); 
+        }
+      } catch (error) {
+        console.error("Error logging in:", error);
+        alert("Server error. Please try again later.");
       }
     } else {
       alert("Please fill all fields");
@@ -36,10 +53,7 @@ const Login = () => {
     /* Main Container: Flexbox handles the side-by-side layout */
     <div className="min-h-screen  flex">
       
-      {/* LEFT SIDE: Image Container 
-          - hidden on mobile
-          - takes up half width (lg:w-1/2) on large screens
-      */}
+      
       <div 
         className="hidden lg:flex lg:w-3/4 bg-cover bg-center relative"
         /* Using a placeholder medical image from Unsplash. You can replace this URL! */
@@ -57,10 +71,7 @@ const Login = () => {
         </div>
       </div>
 
-      {/* RIGHT SIDE: Form Container 
-          - takes full width on mobile (w-full)
-          - takes half width on large screens (lg:w-1/2)
-      */}
+
       <div className="w-full lg:w-1/2 flex items-center justify-center bg-linear-to-br from-blue-50 to-green-50 p-6">
         
         {/* Your Original Form Card */}
