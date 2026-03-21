@@ -17,7 +17,7 @@ const Navbar = () => {
         </h1>
 
         {/* Search bar */}
-        <div className="hidden md:flex w-[520px]">
+        <div className="hidden md:flex w-130">
           <input
             type="text"
             placeholder="Search medicines..."

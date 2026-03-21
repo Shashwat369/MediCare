@@ -23,7 +23,7 @@ const Login = () => {
     // Dummy login logic
     if (formData.email && formData.password) {
       if (formData.role === "user") {
-        navigate("/user/home");
+        navigate("/"); 
       } else if (formData.role === "seller") {
         navigate("/seller/dashboard");
       }
@@ -33,85 +33,104 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-blue-50 to-green-50">
-      <div className="w-full max-w-md bg-white/80 backdrop-blur-md shadow-xl rounded-2xl p-8 border border-gray-200">
+    /* Main Container: Flexbox handles the side-by-side layout */
+    <div className="min-h-screen  flex">
+      
+      {/* LEFT SIDE: Image Container 
+          - hidden on mobile
+          - takes up half width (lg:w-1/2) on large screens
+      */}
+      <div 
+        className="hidden lg:flex lg:w-3/4 bg-cover bg-center relative"
+        /* Using a placeholder medical image from Unsplash. You can replace this URL! */
+        style={{ backgroundImage: "url('https://images.unsplash.com/photo-1587854692152-cbe660dbde88?q=80&w=2069&auto=format&fit=crop')" }}
+      >
+        {/* Subtle green overlay to make text readable and match your branding */}
+        <div className="absolute inset-0 bg-green-900/40"></div>
         
-        {/* Logo / Title */}
-        <h1 className="text-3xl font-bold text-center text-green-600 mb-2">
-          Medicare
-        </h1>
-        <p className="text-center text-gray-500 mb-6">
-          Login to your account
-        </p>
+        {/* Promotional Text over the image */}
+        <div className="relative z-10 flex flex-col justify-center items-start p-16 text-white w-full">
+          <h2 className="text-5xl font-bold mb-6">Your Health,<br/>Delivered.</h2>
+          <p className="text-lg max-w-md">
+            Join Medicare to easily order medicines, manage your health records, and connect with trusted local pharmacies.
+          </p>
+        </div>
+      </div>
 
-        {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-4">
+      {/* RIGHT SIDE: Form Container 
+          - takes full width on mobile (w-full)
+          - takes half width on large screens (lg:w-1/2)
+      */}
+      <div className="w-full lg:w-1/2 flex items-center justify-center bg-linear-to-br from-blue-50 to-green-50 p-6">
+        
+        {/* Your Original Form Card */}
+        <div className="w-full max-w-md bg-white/80 backdrop-blur-md shadow-xl rounded-2xl p-8 border border-gray-200">
+          
+          <h1 className="text-3xl font-bold text-center text-green-600 mb-2">
+            Medicare
+          </h1>
+          <p className="text-center text-gray-500 mb-6">
+            Login to your account
+          </p>
 
-          {/* Email */}
-          <div>
-            <label className="text-sm font-medium text-gray-700">
-              Email
-            </label>
-            <input
-              type="email"
-              name="email"
-              placeholder="Enter your email"
-              value={formData.email}
-              onChange={handleChange}
-              className="w-full mt-1 px-4 py-2 border border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
-            />
-          </div>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {/* Email */}
+            <div>
+              <label className="text-sm font-medium text-gray-700">Email</label>
+              <input
+                type="email"
+                name="email"
+                placeholder="Enter your email"
+                value={formData.email}
+                onChange={handleChange}
+                className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+              />
+            </div>
 
-          {/* Password */}
-          <div>
-            <label className="text-sm font-medium text-gray-700">
-              Password
-            </label>
-            <input
-              type="password"
-              name="password"
-              placeholder="Enter your password"
-              value={formData.password}
-              onChange={handleChange}
-              className="w-full mt-1 px-4 py-2 border border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
-            />
-          </div>
+            {/* Password */}
+            <div>
+              <label className="text-sm font-medium text-gray-700">Password</label>
+              <input
+                type="password"
+                name="password"
+                placeholder="Enter your password"
+                value={formData.password}
+                onChange={handleChange}
+                className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+              />
+            </div>
 
-          {/* Role Select */}
-          <div>
-            <label className="text-sm font-medium text-gray-700">
-              Login as
-            </label>
-            <select
-              name="role"
-              value={formData.role}
-              onChange={handleChange}
-              className="w-full mt-1 text-gray-700 px-4 py-2 border border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
+            {/* Role Select */}
+            <div>
+              <label className="text-sm font-medium text-gray-700">Login as</label>
+              <select
+                name="role"
+                value={formData.role}
+                onChange={handleChange}
+                className="w-full mt-1 text-gray-700 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+              >
+                <option value="user">User</option>
+                <option value="seller">Seller</option>
+              </select>
+            </div>
+
+            {/* Button */}
+            <button
+              type="submit"
+              className="w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded-lg font-semibold transition duration-200 mt-2"
             >
-              <option value="user" >User</option>
-              <option value="seller">Seller</option>
-            </select>
-          </div>
+              Login
+            </button>
+          </form>
 
-          {/* Button */}
-          <button
-            type="submit"
-            className="w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded-lg font-semibold transition duration-200"
-          >
-            Login
-          </button>
-        </form>
-
-        {/* Footer */}
-        <p className="text-center text-sm text-gray-500 mt-6">
-          Don’t have an account?{" "}
-          <Link
-            to="/register"
-            className="text-green-600 font-medium hover:underline"
-          >
-            Register
-          </Link>
-        </p>
+          {/* Footer */}
+          <p className="text-center text-sm text-gray-500 mt-6">
+            Don’t have an account?{" "}
+            <Link to="/register" className="text-green-600 font-medium hover:underline">
+              Register
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );
