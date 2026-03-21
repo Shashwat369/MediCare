@@ -55,7 +55,7 @@ const Register = () => {
       {/* LEFT SIDE: Image Container */}
       <div 
         className="hidden lg:flex lg:w-1/2 bg-cover bg-center relative"
-        /* Different medical image for Register page */
+        /* medical image for Register page */
         style={{ backgroundImage: "url('https://images.unsplash.com/photo-1631549916768-4119b2e5f926?q=80&w=2079&auto=format&fit=crop')" }}
       >
         <div className="absolute inset-0 bg-green-900/40"></div>
