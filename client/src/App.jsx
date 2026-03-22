@@ -8,6 +8,8 @@ import AuthLayout from "./layouts/AuthLayout";
 import LandingPage from "./pages/LandingPage";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import UserDashboard from "./pages/User/UserDashboard";
+import ProtectedRoutes from "./components/ProtectedRoutes";
 
 function App() {
   return (
@@ -24,6 +26,18 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Route>
+
+        {/* User Protected Routes */}
+        <Route 
+          path="/dashboard" 
+          element={
+            <ProtectedRoutes>
+              <UserDashboard />
+            </ProtectedRoutes>
+          } 
+        />
+
+        
 
       </Routes>
     </BrowserRouter>

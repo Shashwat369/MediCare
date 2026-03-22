@@ -35,7 +35,7 @@ const Login = () => {
           
           localStorage.setItem("token", data.token); 
           
-          if (data.role === "user") navigate("/");
+          if (data.role === "user") navigate("/dashboard");
           else if (data.role === "seller") navigate("/seller/dashboard");
         } else {
           alert(data.message); 
