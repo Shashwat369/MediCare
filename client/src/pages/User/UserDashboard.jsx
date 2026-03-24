@@ -1,14 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 // --- REDUX IMPORTS ADDED HERE ---
 import { useSelector } from "react-redux";
 // --------------------------------
 import MedicineCard from "../../components/MedicineCard";
+import CartDrawer from "../../components/CartDrawer"; // <-- Imported CartDrawer
 import Paracetamol from "../../assets/Images/MedImages/Paracetamol.jpg";
 import Azithromycin from "../../assets/Images/MedImages/Azithromycin.jpg";
 import Cetirizine from "../../assets/Images/MedImages/Cetirizine.jpg";
 import VitaminC from "../../assets/Images/MedImages/VitaminC.jpg";
 
 const UserDashboard = () => {
+  // --- STATE FOR CART DRAWER ---
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  // -----------------------------
+
   // --- REDUX HOOK ADDED HERE ---
   // We extract cartTotalQuantity from our Redux state
   const { cartTotalQuantity } = useSelector((state) => state.cart);
@@ -51,6 +56,11 @@ const UserDashboard = () => {
 
   return (
     <div className="flex h-screen bg-[#F8FAFC] font-sans">
+      
+      {/* --- CART DRAWER COMPONENT --- */}
+      <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+      {/* ----------------------------- */}
+
       {/* Sidebar - Modernized with icons */}
       <aside className="w-72 bg-white border-r border-gray-100 hidden md:flex flex-col shadow-sm z-10">
         <div className="p-8">
@@ -121,8 +131,11 @@ const UserDashboard = () => {
           {/* User Profile Area */}
           <div className="flex items-center gap-6 ml-4">
             
-            {/* --- NEW: SHOPPING CART ICON --- */}
-            <button className="relative p-2 text-gray-400 hover:text-green-600 transition-colors group">
+            {/* --- SHOPPING CART ICON WITH ONCLICK --- */}
+            <button 
+              onClick={() => setIsCartOpen(true)}
+              className="relative p-2 text-gray-400 hover:text-green-600 transition-colors group cursor-pointer"
+            >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
               </svg>
@@ -133,7 +146,7 @@ const UserDashboard = () => {
                 </span>
               )}
             </button>
-            {/* ------------------------------- */}
+            {/* --------------------------------------- */}
 
             <button className="relative p-2 text-gray-400 hover:text-gray-600 transition-colors">
                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
@@ -155,7 +168,7 @@ const UserDashboard = () => {
           <div className="max-w-7xl mx-auto space-y-8">
             
             {/* Welcome Banner */}
-            <div className="bg-gradient-to-r from-green-600 to-green-400 rounded-3xl p-8 text-white shadow-lg shadow-green-200 flex justify-between items-center">
+            <div className="bg-linear-to-r from-green-600 to-green-400 rounded-3xl p-8 text-white shadow-lg shadow-green-200 flex justify-between items-center">
               <div className="max-w-md">
                 <h1 className="text-3xl font-bold mb-2">Need a refill?</h1>
                 <p className="text-green-50 mb-6">Upload your prescription and get medicines delivered from nearby pharmacies in minutes.</p>
