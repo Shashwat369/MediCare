@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 // --------------------------------
 import MedicineCard from "../../components/MedicineCard";
-import CartDrawer from "../../components/CartDrawer"; // <-- Imported CartDrawer
+import CartDrawer from "../../components/CartDrawer"; 
 import Paracetamol from "../../assets/Images/MedImages/Paracetamol.jpg";
 import Azithromycin from "../../assets/Images/MedImages/Azithromycin.jpg";
 import Cetirizine from "../../assets/Images/MedImages/Cetirizine.jpg";
@@ -13,6 +13,10 @@ const UserDashboard = () => {
   // --- STATE FOR CART DRAWER ---
   const [isCartOpen, setIsCartOpen] = useState(false);
   // -----------------------------
+
+  // --- STATE FOR SEARCH ---
+  const [searchQuery, setSearchQuery] = useState("");
+  // ------------------------
 
   // --- REDUX HOOK ADDED HERE ---
   // We extract cartTotalQuantity from our Redux state
@@ -53,6 +57,15 @@ const UserDashboard = () => {
       oldPrice: 70,
     },
   ];
+
+  // --- SEARCH FILTER LOGIC ---
+  const filteredMedicines = dummyMedicines.filter((med) => {
+    return (
+      med.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      med.category.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  });
+  // ---------------------------
 
   return (
     <div className="flex h-screen bg-[#F8FAFC] font-sans">
@@ -124,6 +137,8 @@ const UserDashboard = () => {
             <input
               type="text"
               placeholder="Search for medicines, health products, or pharmacies..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full bg-gray-50 border border-gray-200 rounded-full pl-12 pr-5 py-3 focus:bg-white focus:ring-2 focus:ring-green-500/20 focus:border-green-500 outline-none transition-all text-sm shadow-sm"
             />
           </div>
@@ -168,7 +183,7 @@ const UserDashboard = () => {
           <div className="max-w-7xl mx-auto space-y-8">
             
             {/* Welcome Banner */}
-            <div className="bg-linear-to-r from-green-600 to-green-400 rounded-3xl p-8 text-white shadow-lg shadow-green-200 flex justify-between items-center">
+            <div className="bg-gradient-to-r from-green-600 to-green-400 rounded-3xl p-8 text-white shadow-lg shadow-green-200 flex justify-between items-center">
               <div className="max-w-md">
                 <h1 className="text-3xl font-bold mb-2">Need a refill?</h1>
                 <p className="text-green-50 mb-6">Upload your prescription and get medicines delivered from nearby pharmacies in minutes.</p>
@@ -207,14 +222,22 @@ const UserDashboard = () => {
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                {dummyMedicines.length > 0 ? (
-                  dummyMedicines.map((med) => (
+                {filteredMedicines.length > 0 ? (
+                  filteredMedicines.map((med) => (
                     <MedicineCard key={med.id} medicine={med} />
                   ))
                 ) : (
-                  [1, 2, 3, 4].map((i) => (
-                    <div key={i} className="animate-pulse bg-white border border-gray-100 h-72 rounded-2xl"></div>
-                  ))
+                  // --- NEW: Empty Search State ---
+                  <div className="col-span-full py-12 text-center">
+                    <p className="text-gray-500 text-lg font-medium">No medicines found matching "{searchQuery}"</p>
+                    <button 
+                      onClick={() => setSearchQuery("")} 
+                      className="mt-4 text-green-600 hover:underline font-semibold"
+                    >
+                      Clear Search
+                    </button>
+                  </div>
+                  // -------------------------------
                 )}
               </div>
             </div>
