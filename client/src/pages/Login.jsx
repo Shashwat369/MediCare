@@ -17,35 +17,48 @@ const Login = () => {
     });
   };
 
- const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (formData.email && formData.password) {
-      try {
-        const response = await fetch("http://localhost:5000/api/auth/login", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
-        });
+    if (!formData.email || !formData.password) {
+      return alert("Please fill all fields");
+    }
 
-        const data = await response.json();
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
 
-        if (response.ok) {
-          alert("Login Successful!");
-          
-          localStorage.setItem("token", data.token); 
-          
-          if (data.role === "user") navigate("/dashboard");
-          else if (data.role === "seller") navigate("/seller/dashboard");
+      const data = await response.json();
+
+      if (response.ok) {
+        // 1. Save the token and user data to localStorage (or Redux)
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("userInfo", JSON.stringify(data));
+
+        alert("Login successful!");
+
+        // 2. ROLE-BASED ROUTING: Send them to the right dashboard
+        if (data.role === "seller") {
+          navigate("/seller-dashboard"); // Make sure to create this route later!
+        } else if (data.role === "admin") {
+          navigate("/admin-dashboard");
         } else {
-          alert(data.message); 
+          navigate("/dashboard"); // Normal user goes to the green dashboard we built
         }
-      } catch (error) {
-        console.error("Error logging in:", error);
-        alert("Server error. Please try again later.");
+
+      } else {
+        // This will catch the "pending admin verification" message perfectly
+        alert(data.message); 
       }
-    } else {
-      alert("Please fill all fields");
+    } catch (error) {
+      console.error("Error logging in:", error);
+      alert("Server error. Please try again later.");
     }
   };
 

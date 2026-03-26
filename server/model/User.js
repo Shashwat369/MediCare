@@ -19,9 +19,12 @@ const userSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ["user", "seller", "admin"], 
-      default: "user", 
+      enum: ["user", "seller", "admin"],
+      default: "user",
     },
+    shopName: { type: String },
+    shopLicense: { type: String },
+    isVerified: { type: Boolean, default: false },
   },
   {
     timestamps: true,

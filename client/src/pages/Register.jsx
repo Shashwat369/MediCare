@@ -10,6 +10,9 @@ const Register = () => {
     password: "",
     confirmPassword: "",
     role: "user",
+    // --- NEW: Seller-specific fields ---
+    shopName: "",
+    shopLicense: "",
   });
 
   const handleChange = (e) => {
@@ -28,8 +31,15 @@ const Register = () => {
       !formData.password ||
       !formData.confirmPassword
     ) {
-      return alert("Please fill all fields");
+      return alert("Please fill all required fields");
     }
+    
+    // --- FRONTEND VALIDATION FOR SELLER ---
+    if (formData.role === "seller" && (!formData.shopName || !formData.shopLicense)) {
+        return alert("Shop Name and License are required for Sellers");
+    }
+    // --------------------------------------
+
     if (formData.password !== formData.confirmPassword) {
       return alert("Passwords do not match");
     }
@@ -44,16 +54,23 @@ const Register = () => {
           email: formData.email,
           password: formData.password,
           role: formData.role,
+          // --- SENDING CONDITIONAL SELLER DATA ---
+          ...(formData.role === "seller" && {
+            shopName: formData.shopName,
+            shopLicense: formData.shopLicense,
+          }),
+          // ---------------------------------------
         }),
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        alert("Registered successfully! Please login.");
-        navigate("/login"); // Send them to login after registering
+        // Updated alert to handle the seller verification message
+        alert(data.message); 
+        navigate("/login");
       } else {
-        alert(data.message); // e.g., "User already exists"
+        alert(data.message);
       }
     } catch (error) {
       console.error("Error registering:", error);
@@ -62,12 +79,10 @@ const Register = () => {
   };
 
   return (
-    /* Main Container */
     <div className="min-h-screen flex">
       {/* LEFT SIDE: Image Container */}
       <div
         className="hidden lg:flex lg:w-1/2 bg-cover bg-center relative"
-        /* medical image for Register page */
         style={{
           backgroundImage:
             "url('https://images.unsplash.com/photo-1631549916768-4119b2e5f926?q=80&w=2079&auto=format&fit=crop')",
@@ -169,6 +184,42 @@ const Register = () => {
                 <option value="seller">Seller</option>
               </select>
             </div>
+
+            {/* --- CONDITIONAL SELLER FIELDS --- */}
+            {formData.role === "seller" && (
+              <div className="space-y-4 p-4 bg-green-50 rounded-xl border border-green-100 animate-fade-in">
+                <div>
+                  <label className="text-sm font-semibold text-green-800">
+                    Pharmacy/Shop Name
+                  </label>
+                  <input
+                    type="text"
+                    name="shopName"
+                    placeholder="e.g., Apollo Pharmacy"
+                    value={formData.shopName}
+                    onChange={handleChange}
+                    className="w-full mt-1 px-4 py-2 border border-green-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                  />
+                </div>
+                <div>
+                  <label className="text-sm font-semibold text-green-800">
+                    License Number
+                  </label>
+                  <input
+                    type="text"
+                    name="shopLicense"
+                    placeholder="Enter valid license code"
+                    value={formData.shopLicense}
+                    onChange={handleChange}
+                    className="w-full mt-1 px-4 py-2 border border-green-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                  />
+                </div>
+                <p className="text-xs text-green-700 italic">
+                  Note: Your account will require admin verification before you can list products.
+                </p>
+              </div>
+            )}
+            {/* ----------------------------------- */}
 
             {/* Button */}
             <button
