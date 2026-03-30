@@ -1,14 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // --- REDUX IMPORTS ADDED HERE ---
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 // --------------------------------
 import MedicineCard from "../../components/MedicineCard";
 import CartDrawer from "../../components/CartDrawer";
-import Paracetamol from "../../assets/Images/MedImages/Paracetamol.jpg";
-import Azithromycin from "../../assets/Images/MedImages/Azithromycin.jpg";
-import Cetirizine from "../../assets/Images/MedImages/Cetirizine.jpg";
-import VitaminC from "../../assets/Images/MedImages/VitaminC.jpg";
 
 const UserDashboard = () => {
   // --- STATE FOR CART DRAWER ---
@@ -19,57 +15,49 @@ const UserDashboard = () => {
   const [searchQuery, setSearchQuery] = useState("");
   // ------------------------
 
-  // --- REDUX HOOK ADDED HERE ---
+  // --- NEW: State for real medicines and loading status ---
+  const [medicines, setMedicines] = useState([]);
+  const [loading, setLoading] = useState(true);
+  // --------------------------------------------------------
+
+  
   // We extract cartTotalQuantity from our Redux state
   const { cartTotalQuantity } = useSelector((state) => state.cart);
   // -----------------------------
 
-  const dummyMedicines = [
-    {
-      id: 1,
-      name: "Paracetamol 500mg",
-      image: Paracetamol,
-      category: "Pain Relief",
-      price: 40,
-      oldPrice: 60,
-    },
-    {
-      id: 2,
-      name: "Amoxicillin Capsule",
-      image: Azithromycin,
-      category: "Antibiotic",
-      price: 120,
-      oldPrice: 150,
-    },
-    {
-      id: 3,
-      name: "Cetirizine Tablet",
-      image: Cetirizine,
-      category: "Allergy",
-      price: 25,
-      oldPrice: 30,
-    },
-    {
-      id: 4,
-      name: "Vitamin C (Limcee)",
-      image: VitaminC,
-      category: "Supplements",
-      price: 55,
-      oldPrice: 70,
-    },
-  ];
+  // --- NEW: Fetch medicines from backend ---
+  useEffect(() => {
+    const fetchMedicines = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/medicines");
+        const result = await response.json();
+
+        if (result.success) {
+          setMedicines(result.data); 
+        }
+      } catch (error) {
+        console.error("Failed to fetch medicines:", error);
+      } finally {
+        setLoading(false); 
+      }
+    };
+
+    fetchMedicines();
+  }, []);
+  // -----------------------------------------
 
   // --- SEARCH FILTER LOGIC ---
-  const filteredMedicines = dummyMedicines.filter((med) => {
+  const filteredMedicines = medicines.filter((med) => {
     return (
       med.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       med.category.toLowerCase().includes(searchQuery.toLowerCase())
     );
   });
   // ---------------------------
+  
   const navigate = useNavigate();
+  
   const handleLogout = () => {
-    // Optional: Ask for confirmation so they don't accidentally click it
     if (window.confirm("Are you sure you want to log out?")) {
       // 1. Clear only the authentication data
       localStorage.removeItem("token");
@@ -299,7 +287,7 @@ const UserDashboard = () => {
         <section className="flex-1 overflow-y-auto p-8 scroll-smooth">
           <div className="max-w-7xl mx-auto space-y-8">
             {/* Welcome Banner */}
-            <div className="bg-linear-to-r from-green-600 to-green-400 rounded-3xl p-8 text-white shadow-lg shadow-green-200 flex justify-between items-center">
+            <div className="bg-gradient-to-r from-green-600 to-green-400 rounded-3xl p-8 text-white shadow-lg shadow-green-200 flex justify-between items-center">
               <div className="max-w-md">
                 <h1 className="text-3xl font-bold mb-2">Need a refill?</h1>
                 <p className="text-green-50 mb-6">
@@ -380,22 +368,29 @@ const UserDashboard = () => {
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                {filteredMedicines.length > 0 ? (
+                {loading ? (
+                  [1, 2, 3, 4].map((i) => (
+                    <div key={i} className="animate-pulse bg-white border border-gray-100 h-72 rounded-2xl"></div>
+                  ))
+                ) : filteredMedicines.length > 0 ? (
                   filteredMedicines.map((med) => (
-                    <MedicineCard key={med.id} medicine={med} />
+                    // Make sure MedicineCard uses med._id since that's what MongoDB returns
+                    <MedicineCard key={med._id || med.id} medicine={med} />
                   ))
                 ) : (
-                  // --- NEW: Empty Search State ---
+                  // --- Empty Search State ---
                   <div className="col-span-full py-12 text-center">
                     <p className="text-gray-500 text-lg font-medium">
-                      No medicines found matching "{searchQuery}"
+                      {searchQuery ? `No medicines found matching "${searchQuery}"` : "No medicines available yet."}
                     </p>
-                    <button
-                      onClick={() => setSearchQuery("")}
-                      className="mt-4 text-green-600 hover:underline font-semibold"
-                    >
-                      Clear Search
-                    </button>
+                    {searchQuery && (
+                      <button
+                        onClick={() => setSearchQuery("")}
+                        className="mt-4 text-green-600 hover:underline font-semibold"
+                      >
+                        Clear Search
+                      </button>
+                    )}
                   </div>
                   // -------------------------------
                 )}

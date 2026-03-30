@@ -1,4 +1,4 @@
-const Medicine = reiquire("../model/Medicine");
+const Medicine = require("../model/Medicine");
 
 // Get medicines
 

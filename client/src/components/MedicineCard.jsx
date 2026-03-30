@@ -1,6 +1,5 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// Make sure to import the new decreaseCart action
 import { addToCart, decreaseCart } from '../redux/slices/cartSlice'; 
 
 const MedicineCard = ({ medicine }) => {
@@ -9,8 +8,10 @@ const MedicineCard = ({ medicine }) => {
   // 1. Grab the whole cart array from Redux
   const cartItems = useSelector((state) => state.cart.cartItems);
 
-  // 2. Check if THIS specific medicine is already in the cart
-  const cartItem = cartItems.find((item) => item.id === medicine.id);
+  // 2. THE FIX: Check for THIS specific medicine using either MongoDB _id OR regular id
+  const cartItem = cartItems.find((item) => 
+    (item._id || item.id) === (medicine._id || medicine.id)
+  );
   
   // 3. If it is, get its quantity. If not, quantity is 0.
   const quantity = cartItem ? cartItem.cartQuantity : 0;
@@ -38,6 +39,11 @@ const MedicineCard = ({ medicine }) => {
       <div className="text-center w-full space-y-1.5 flex-1 flex flex-col">
         <p className="text-xs text-gray-500 font-medium uppercase tracking-widest">{medicine.category}</p>
         <h4 className="text-lg font-bold text-gray-900 truncate px-1">{medicine.name}</h4>
+        
+        {/* Added company name display since we added it to the backend model */}
+        {medicine.company && (
+          <p className="text-xs text-gray-400 font-medium">{medicine.company}</p>
+        )}
         
         <div className="flex items-center justify-center gap-2 mt-4 pt-4 border-t border-gray-100 w-full">
           <div>

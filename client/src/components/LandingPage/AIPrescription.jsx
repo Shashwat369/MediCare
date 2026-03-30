@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion as Motion } from "framer-motion";
 import { useRef } from "react";
 
 export default function AIPrescription() {
@@ -12,7 +12,7 @@ export default function AIPrescription() {
 
         {/* LEFT CONTENT */}
 
-        <motion.div
+        <Motion.div
           initial={{ x: -80, opacity: 0 }}
           whileInView={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.6 }}
@@ -34,11 +34,11 @@ export default function AIPrescription() {
             <li>🔁 Suggests alternatives if unavailable</li>
           </ul>
 
-        </motion.div>
+        </Motion.div>
 
         {/* RIGHT UPLOAD CARD */}
 
-        <motion.div
+        <Motion.div
           initial={{ x: 80, opacity: 0 }}
           whileInView={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.6 }}
@@ -72,7 +72,7 @@ export default function AIPrescription() {
 
           </div>
 
-        </motion.div>
+        </Motion.div>
 
       </div>
 

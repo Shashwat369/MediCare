@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion as Motion } from "framer-motion";
  import {ArrowRight} from "lucide-react";
 
 import Dolo from "../../assets/Images/MedImages/Dolo.webp";
@@ -57,7 +57,7 @@ export default function PopularMedicines() {
       {/* Medicines Grid */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
         {medicines.map((med, index) => (
-          <motion.div
+          <Motion.div
             key={index}
             whileHover={{ scale: 1.05 }}
             className="bg-white rounded-xl shadow-md p-6 text-center hover:shadow-xl transition relative"
@@ -75,7 +75,7 @@ export default function PopularMedicines() {
             <button className="mt-4 cursor-pointer bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition">
               Add to Cart
             </button>
-          </motion.div>
+          </Motion.div>
         ))}
       </div>
       {/* View All Button */}

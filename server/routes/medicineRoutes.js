@@ -15,3 +15,5 @@ router.post('/', addMedicine);
 
 // --- NEW Route: GET /api/medicines/:id ---
 router.get('/:id', getMedicineById);
+
+module.exports = router;

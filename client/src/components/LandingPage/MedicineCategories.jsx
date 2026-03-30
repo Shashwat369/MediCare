@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion as Motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
 const categories = [
@@ -25,7 +25,7 @@ export default function MedicineCategories() {
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
         {categories.map((cat, index) => (
-          <motion.div
+          <Motion.div
             key={index}
             whileHover={{ scale: 1.05 }}
             className="bg-white rounded-xl shadow-md p-6 text-center cursor-pointer hover:shadow-xl transition"
@@ -33,7 +33,7 @@ export default function MedicineCategories() {
             <div className="text-4xl mb-3">{cat.icon}</div>
 
             <h3 className="font-semibold">{cat.name}</h3>
-          </motion.div>
+          </Motion.div>
         ))}
       </div>
 

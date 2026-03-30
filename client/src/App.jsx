@@ -10,6 +10,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import UserDashboard from "./pages/User/UserDashboard";
 import ProtectedRoutes from "./components/ProtectedRoutes";
+import SellerDashboard from "./pages/Seller/SellerDashboard";
 
 function App() {
   return (
@@ -36,6 +37,16 @@ function App() {
             </ProtectedRoutes>
           } 
         />
+        <Route 
+          path="/seller-dashboard" 
+          element={
+           
+              <SellerDashboard />
+         
+          } 
+        />
+
+       
 
         
 

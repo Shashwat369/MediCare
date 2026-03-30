@@ -1,9 +1,9 @@
-import { motion } from "framer-motion";
+import { motion as Motion } from "framer-motion";
 
 export default function TrustSection() {
   return (
     <section className="px-6 lg:px-20 mt-16">
-      <motion.div
+      <Motion.div
         initial={{ y: 60, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6 }}
@@ -41,7 +41,7 @@ export default function TrustSection() {
           </div>
         </div>
 
-      </motion.div>
+      </Motion.div>
     </section>
   );
 }

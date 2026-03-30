@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion as Motion } from "framer-motion";
 import { useRef } from "react";
 import Image1 from "../../assets/Images/Image1.png";
 
@@ -23,7 +23,7 @@ export default function HeroSection() {
 
         {/* LEFT CONTENT */}
 
-        <motion.div
+        <Motion.div
           initial={{ x: -120, opacity: 0 }}
           whileInView={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.8 }}
@@ -102,11 +102,11 @@ export default function HeroSection() {
 
           </div>
 
-        </motion.div>
+        </Motion.div>
 
         {/* RIGHT IMAGE */}
 
-        <motion.div
+        <Motion.div
           initial={{ x: 120, opacity: 0 }}
           whileInView={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.8 }}
@@ -119,7 +119,7 @@ export default function HeroSection() {
             className="w-[380px] sm:w-[450px] lg:w-[520px] object-contain"
           />
 
-        </motion.div>
+        </Motion.div>
 
       </div>
     </section>

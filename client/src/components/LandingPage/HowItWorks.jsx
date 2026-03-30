@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion as Motion } from "framer-motion";
 
 const steps = [
   {
@@ -42,7 +42,7 @@ export default function HowItWorks() {
 
         {steps.map((step, index) => (
 
-          <motion.div
+          <Motion.div
             key={index}
             initial={{ y: 40, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
@@ -60,7 +60,7 @@ export default function HowItWorks() {
               {step.desc}
             </p>
 
-          </motion.div>
+          </Motion.div>
 
         ))}
 
