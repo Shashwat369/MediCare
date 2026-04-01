@@ -16,7 +16,6 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        
         {/* Pages WITH Navbar */}
         <Route element={<MainLayout />}>
           <Route path="/" element={<LandingPage />} />
@@ -29,27 +28,33 @@ function App() {
         </Route>
 
         {/* User Protected Routes */}
-        <Route 
-          path="/dashboard" 
+        <Route
+          path="/dashboard"
           element={
-            <ProtectedRoutes>
+            <ProtectedRoutes allowedRoles={["user"]}>
               <UserDashboard />
+            </ProtectedRoutes>
+          }
+        />
+        <Route
+          path="/seller-dashboard"
+          element={
+            <ProtectedRoutes allowedRoles={["seller"]}>
+              <SellerDashboard />
+            </ProtectedRoutes>
+          }
+        />
+
+        {/* Admin Routes (Only 'admin' can access) */}
+        <Route 
+          path="/admin-dashboard" 
+          element={
+            <ProtectedRoutes allowedRoles={['admin']}>
+              <AdminDashboard /> 
             </ProtectedRoutes>
           } 
         />
-        <Route 
-          path="/seller-dashboard" 
-          element={
-           
-              <SellerDashboard />
-         
-          } 
-        />
-
-       
-
-        
-
+      
       </Routes>
     </BrowserRouter>
   );

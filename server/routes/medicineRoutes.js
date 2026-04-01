@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const { protect , authorizeRoles} = require("../middleware/authMiddleware")
 
 const {
   getMedicines,
@@ -10,10 +11,11 @@ const {
 // Route: GET /api/medicines
 router.get('/', getMedicines);
 
-// Route: POST /api/medicines
-router.post('/', addMedicine);
-
 // --- NEW Route: GET /api/medicines/:id ---
 router.get('/:id', getMedicineById);
+
+// Route: POST /api/medicines
+router.post('/',protect , authorizeRoles('seller') , addMedicine);
+
 
 module.exports = router;
