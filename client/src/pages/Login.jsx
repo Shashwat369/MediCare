@@ -31,6 +31,7 @@ const handleSubmit = async (e) => {
         body: JSON.stringify({
           email: formData.email,
           password: formData.password,
+          role : formData.role,
         }),
       });
 
