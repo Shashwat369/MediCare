@@ -91,6 +91,9 @@ const loginUser = async (req, res) => {
         name: user.name,
         email: user.email,
         role: user.role,
+        shopName : user.shopName,
+        isVerified: user.isVerified,
+        shopLicense: user.shopLicense,
         token: token,
         message: "Login successful!",
       });

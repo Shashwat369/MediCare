@@ -11,6 +11,7 @@ import Register from "./pages/Register";
 import UserDashboard from "./pages/User/UserDashboard";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 import SellerDashboard from "./pages/Seller/SellerDashboard";
+import AdminDashboard from "./pages/Admin/AdminDashboard"
 
 function App() {
   return (
