@@ -64,7 +64,7 @@ const UserDashboard = () => {
       localStorage.removeItem("userInfo");
 
       // 2. Redirect straight to the login page
-      navigate("/login");
+      navigate("/");
     }
   };
 

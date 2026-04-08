@@ -4,7 +4,7 @@ export default function LandingFooter() {
   return (
     <footer className="bg-gray-900 text-gray-300 px-6 lg:px-20 py-16">
 
-      <div className="grid md:grid-cols-4 gap-10">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-10">
 
         {/* Brand */}
 
